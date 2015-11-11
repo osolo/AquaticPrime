@@ -25,23 +25,14 @@
 // OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Cocoa/Cocoa.h>
-#include <openssl/rsa.h>
-#include <openssl/sha.h>
-#include <openssl/err.h>
 
-@interface AquaticPrime : NSObject {
-	RSA *rsaKey;
-	
-	NSString *aqError;
-	NSString *hash;
-	NSArray *blacklist;
-}
+@interface AquaticPrime : NSObject
 
 // Creation
-+ (id)aquaticPrimeWithKey:(NSString *)key;
-+ (id)aquaticPrimeWithKey:(NSString *)key privateKey:(NSString *)privateKey;
-- (id)initWithKey:(NSString *)key;
-- (id)initWithKey:(NSString *)key privateKey:(NSString *)privateKey;
++ (instancetype)aquaticPrimeWithKey:(NSString *)key;
++ (instancetype)aquaticPrimeWithKey:(NSString *)key privateKey:(NSString *)privateKey;
+- (instancetype)initWithKey:(NSString *)key;
+- (instancetype)initWithKey:(NSString *)key privateKey:(NSString *)privateKey;
 
 // Getters & Setters
 - (BOOL)setKey:(NSString *)key;
