@@ -69,6 +69,7 @@ static const CGFunctionCallbacks linearFunctionCallbacks = {0, _linearColorBlend
 
 - (void)highlightSelectionInClipRect:(NSRect)rect;
 {
+    return;
     // Take the color apart
     NSColor *alternateSelectedControlColor = [NSColor alternateSelectedControlColor];
     float hue, saturation, brightness, alpha;
