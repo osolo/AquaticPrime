@@ -19,6 +19,7 @@ function ap_hex2bin($hex) {
     if (strlen($hex) % 2)
         $hex = "0".$hex;
     
+    $bin = '';
     for ($i = 0; $i < strlen($hex); $i += 2) { 
         $bin .= chr(hexdec(substr($hex, $i, 2))); 
     }
@@ -63,7 +64,8 @@ function hex2dec($number)
                        'f' => '15');
     $decval = '0';
     
-    $number = array_pop(explode("0x", $number, 2));
+    $tmp = explode("0x", $number, 2);
+    $number = array_pop($tmp);
     
     $number = strrev($number);
     for($i = 0; $i < strlen($number); $i++)
@@ -130,19 +132,23 @@ function getSignature($dict, $key, $privKey)
 
     // restore localte
     setlocale(LC_CTYPE, $oldlocale);
-    
-    // This part is the most expensive below
-    // We try to do it with native code first
-    $aquatic_root = preg_replace('!((/[A-Za-z._-]+)+)/AquaticPrime\.php!', '$1', __FILE__);
-    ob_start();
-    $passthruString = $aquatic_root."/aquaticprime $key $privKey $fixedApostrophes";
 
-    passthru($passthruString, $err);
-    $sig = ob_get_contents();
-    ob_end_clean();
-    if ($err)
+    $sig = '';
+    if (0)
     {
-        error_log("passthrough yielded $err: $passthruString");
+        // This part is the most expensive below
+        // We try to do it with native code first
+        $aquatic_root = preg_replace('!((/[A-Za-z._-]+)+)/AquaticPrime\.php!', '$1', __FILE__);
+        ob_start();
+        $passthruString = $aquatic_root."/aquaticprime $key $privKey $fixedApostrophes";
+    
+        passthru($passthruString, $err);
+        $sig = ob_get_contents();
+        ob_end_clean();
+        if ($err)
+        {
+            error_log("passthrough yielded $err: $passthruString");
+        }
     }
 
     // If that fails, do it in php
@@ -168,7 +174,7 @@ function getSignature($dict, $key, $privKey)
 
         // Encrypt into a signature
         $sig = powmod($decryptedSig, hex2dec($privKey), hex2dec($key));
-        $sig = base64_encode(ap_hex2bin(dec2hex($sig)));
+        $sig = base64_encode(hex2bin(dec2hex($sig)));
     }
     return $sig;
 }
