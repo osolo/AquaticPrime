@@ -43,6 +43,10 @@ function dec2hex($number)
         $hexval = $hexvalues[bcmod($number,'16')].$hexval;
         $number = bcdiv($number,'16',0);
     }
+    if (strlen($hexval) & 1)
+    {
+        $hexval = "0${hexval}";
+    }
     return $hexval;
 }
 
