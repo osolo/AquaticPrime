@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,8 @@
 		3DD108F40881725A00C4C6B4 /* About.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD108F30881725A00C4C6B4 /* About.nib */; };
 		3DD108F80881726E00C4C6B4 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD108F60881726E00C4C6B4 /* AboutController.m */; };
 		3DF60B9E085CE0BD004C50F2 /* remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3DF60B9D085CE0BD004C50F2 /* remove.tiff */; };
+		6512A7A21BF29F2800F67FB9 /* libssl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6512A7A11BF29F2800F67FB9 /* libssl.tbd */; };
+		6512A7A41BF29F3100F67FB9 /* libcrypto.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6512A7A31BF29F3100F67FB9 /* libcrypto.tbd */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -84,6 +86,8 @@
 		3DD108F50881726E00C4C6B4 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		3DD108F60881726E00C4C6B4 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		3DF60B9D085CE0BD004C50F2 /* remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = remove.tiff; sourceTree = "<group>"; };
+		6512A7A11BF29F2800F67FB9 /* libssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libssl.tbd; path = usr/lib/libssl.tbd; sourceTree = SDKROOT; };
+		6512A7A31BF29F3100F67FB9 /* libcrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcrypto.tbd; path = usr/lib/libcrypto.tbd; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* AquaticPrime Developer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AquaticPrime Developer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -96,6 +100,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6512A7A41BF29F3100F67FB9 /* libcrypto.tbd in Frameworks */,
+				6512A7A21BF29F2800F67FB9 /* libssl.tbd in Frameworks */,
 				A0DA7A7509B3B3AA00673D39 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +181,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6512A7A31BF29F3100F67FB9 /* libcrypto.tbd */,
+				6512A7A11BF29F2800F67FB9 /* libssl.tbd */,
 				A0DA7A7409B3B3AA00673D39 /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -325,10 +333,10 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = 3D9363D608565C58006F1864 /* Build configuration list for PBXProject "AquaticPrime Developer" */;
-			compatibilityVersion = "Xcode 3.0";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -413,6 +421,7 @@
 		3D9363D308565C58006F1864 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -423,11 +432,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.5;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_LDFLAGS = "-lcrypto";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aquaticmac.aquaticPrimeDeveloper;
 				PRODUCT_NAME = "AquaticPrime Developer";
+				USER_HEADER_SEARCH_PATHS = /opt/local/include;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -436,6 +447,7 @@
 		3D9363D408565C58006F1864 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -451,12 +463,14 @@
 				GENERATE_PKGINFO_FILE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.5;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-lcrypto";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aquaticmac.aquaticPrimeDeveloper;
 				PRODUCT_NAME = "AquaticPrime Developer";
+				USER_HEADER_SEARCH_PATHS = /opt/local/include;
 				WARNING_CFLAGS = "-Wno-unused";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -466,6 +480,7 @@
 		3D9363D508565C58006F1864 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AquaticPrimeDeveloper_Prefix.pch;
@@ -473,11 +488,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.5;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				OTHER_LDFLAGS = "-lcrypto";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aquaticmac.aquaticPrimeDeveloper;
 				PRODUCT_NAME = "AquaticPrime Developer";
+				USER_HEADER_SEARCH_PATHS = /opt/local/include;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -486,6 +503,8 @@
 		3D9363D708565C58006F1864 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Development;
@@ -493,8 +512,6 @@
 		3D9363D808565C58006F1864 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				SDKROOT = macosx;
 			};
 			name = Deployment;
@@ -502,8 +519,6 @@
 		3D9363D908565C58006F1864 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				SDKROOT = macosx;
 			};
 			name = Default;

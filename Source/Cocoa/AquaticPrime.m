@@ -25,15 +25,27 @@
 // OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "AquaticPrime.h"
+#include <openssl/rsa.h>
+#include <openssl/sha.h>
+#include <openssl/err.h>
+
+@interface AquaticPrime() {
+    RSA *rsaKey;
+    
+    NSString *aqError;
+    NSString *hash;
+    NSArray *blacklist;
+}
+@end
 
 @implementation AquaticPrime
 
-- (id)init
+- (instancetype)init
 {
 	return [self initWithKey:nil privateKey:nil];
 }
 
-- (id)initWithKey:(NSString *)key
+- (instancetype)initWithKey:(NSString *)key
 {	
 	return [self initWithKey:key privateKey:nil];
 }
@@ -61,22 +73,16 @@
 	
 	if (rsaKey)
 		RSA_free(rsaKey);
-
-	[blacklist release];
-	[aqError release];
-	[hash release];
-	
-	[super dealloc];
 }
 
-+ (id)aquaticPrimeWithKey:(NSString *)key privateKey:(NSString *)privateKey
++ (instancetype)aquaticPrimeWithKey:(NSString *)key privateKey:(NSString *)privateKey
 {
-	return [[[AquaticPrime alloc] initWithKey:key privateKey:privateKey] autorelease];
+	return [[AquaticPrime alloc] initWithKey:key privateKey:privateKey];
 }
 
-+ (id)aquaticPrimeWithKey:(NSString *)key
++ (instancetype)aquaticPrimeWithKey:(NSString *)key
 {
-	return [[[AquaticPrime alloc] initWithKey:key privateKey:nil] autorelease];
+	return [[AquaticPrime alloc] initWithKey:key privateKey:nil];
 }
 
 - (BOOL)setKey:(NSString *)key 
@@ -138,7 +144,7 @@
 	NSString *nString = [[NSString alloc] initWithUTF8String:cString];
 	OPENSSL_free(cString);
 	
-	return [nString autorelease];
+	return nString;
 }
 
 - (NSString *)privateKey
@@ -151,13 +157,12 @@
 	NSString *dString = [[NSString alloc] initWithUTF8String:cString];
 	OPENSSL_free(cString);
 	
-	return [dString autorelease];
+	return dString;
 }
 
 - (void)setHash:(NSString *)newHash
 {
-	[hash release];
-	hash = [newHash retain];
+	hash = newHash;
 }
 
 - (NSString *)hash
@@ -170,8 +175,7 @@
 // This array should contain a list of NSStrings representing hexadecimal hashcodes for blacklisted licenses
 - (void)setBlacklist:(NSArray*)hashArray
 {
-	[blacklist release];
-	blacklist = [hashArray retain];
+	blacklist = hashArray;
 }
 
 #pragma mark Signing
@@ -227,13 +231,14 @@
 	[licenseDict setObject:[NSData dataWithBytesNoCopy:signature length:bytes]  forKey:@"Signature"];
 	
 	// Create the data from the dictionary
-	NSString *error = nil;
-	NSData *licenseFile = [NSPropertyListSerialization dataFromPropertyList:licenseDict 
-																	 format:kCFPropertyListXMLFormat_v1_0 
-														   errorDescription:&error];
+	NSError *error = nil;
+	NSData *licenseFile = [NSPropertyListSerialization dataWithPropertyList:licenseDict
+																	 format:NSPropertyListXMLFormat_v1_0
+                                                                    options:0
+                                                                      error:&error];
 	
 	if (!licenseFile) {
-		[self _setError:error];
+		[self _setError:error.description];
 		return nil;
 	}
 	
@@ -261,8 +266,11 @@
 
 	// Create a dictionary from the data
 	NSPropertyListFormat format;
-	NSString *error;
-	NSMutableDictionary *licenseDict = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&error];
+	NSError *error;
+	NSMutableDictionary *licenseDict = [NSPropertyListSerialization propertyListWithData:data
+                                                                                 options:NSPropertyListMutableContainersAndLeaves
+                                                                                  format:&format
+                                                                                   error:&error];
 	if (![licenseDict isKindOfClass:[NSMutableDictionary class]] || error)
 		return nil;
 		
@@ -272,7 +280,7 @@
 	
 	// Decrypt the signature - should get 20 bytes back
 	unsigned char checkDigest[20];
-	if (RSA_public_decrypt([signature length], [signature bytes], checkDigest, rsaKey, RSA_PKCS1_PADDING) != 20)
+	if (RSA_public_decrypt((int)[signature length], [signature bytes], checkDigest, rsaKey, RSA_PKCS1_PADDING) != 20)
 		return nil;
 	
 	// Make sure the license hash isn't on the blacklist
@@ -357,8 +365,7 @@
 
 - (void)_setError:(NSString *)err
 {
-	[aqError release];
-	aqError = [err retain];
+    aqError = err;
 }
 
 @end

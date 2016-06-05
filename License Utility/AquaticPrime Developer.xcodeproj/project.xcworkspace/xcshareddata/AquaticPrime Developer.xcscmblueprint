@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1294249FF98BDD8B2B61312A7FA4A54FFB4217F2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1294249FF98BDD8B2B61312A7FA4A54FFB4217F2" : 0,
+    "F9608A44BA66A081FACB5122B0D42AB983CC1839" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2BEC6F90-9314-4B2C-92E0-F3927CF283FC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1294249FF98BDD8B2B61312A7FA4A54FFB4217F2" : "AquaticPrime\/",
+    "F9608A44BA66A081FACB5122B0D42AB983CC1839" : "..\/.."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AquaticPrime Developer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "License Utility\/AquaticPrime Developer.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:osolo\/AquaticPrime.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1294249FF98BDD8B2B61312A7FA4A54FFB4217F2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/solo-backup\/home\/git\/repos\/Scribe.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F9608A44BA66A081FACB5122B0D42AB983CC1839"
+    }
+  ]
+}

@@ -1,6 +1,10 @@
-AquaticPrime Developer.app
-.DS_Store
-.idea
-*.xcuserstate
-node_modules
-Source/NodeJS/dist
+UserInterfaceState.xcuserstate
+build
+*.pbxuser
+*.perspectivev3
+*.mode1v3
+*~
+*~.nib
+*~.xib 
+.DS_Store 
+xcuserdata/
